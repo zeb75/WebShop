@@ -29,5 +29,7 @@ namespace WebShop.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Product> Products { get; set; }
     }
 }
