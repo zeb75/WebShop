@@ -30,20 +30,45 @@ namespace WebShop.Migrations
             //    );
             //
 
+
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            ApplicationUser myAdmin;
+            ApplicationUser myUser;
+
             if (context.Users.SingleOrDefault(u => u.Email == "admin@admin.se") == null)
             {
-                ApplicationUser myAdmin = new ApplicationUser() { Email = "admin@admin.se", UserName = "admin@admin.se" };
+                myAdmin = new ApplicationUser() { Email = "admin@admin.se", UserName = "admin@admin.se" };
                 userManager.Create(myAdmin, "Password1!");
             }
 
             if (context.Users.SingleOrDefault(u => u.Email == "user@user.se") == null)
             {
-                ApplicationUser myAdmin = new ApplicationUser() { Email = "user@user.se", UserName = "user@user.se" };
-                userManager.Create(myAdmin, "Password1!");
+                myUser = new ApplicationUser() { Email = "user@user.se", UserName = "user@user.se" };
+                userManager.Create(myUser, "Password1!");
             }
+
+            if (roleManager.FindByName("Admin") == null)
+            {
+                roleManager.Create(new IdentityRole("Admin"));
+            }
+
+            if (roleManager.FindByName("Customer") == null)
+            {
+                roleManager.Create(new IdentityRole("Customer"));
+            }
+
+            context.SaveChanges(); // Save changes to Db(context) 
+
+            myAdmin = userManager.FindByEmail("admin@admin.se");
+            myUser = userManager.FindByEmail("user@user.se");
+
+            userManager.AddToRole(myAdmin.Id, "Admin");
+            userManager.AddToRole(myUser.Id, "Customer");
 
         }
     }
