@@ -42,5 +42,9 @@ namespace WebShop.Models
         }
 
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderRow> OrderRows { get; set; }
     }
 }

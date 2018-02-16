@@ -5,12 +5,14 @@ using System.Web;
 
 namespace WebShop.Models
 {
-    public class Order
+    public class OrderRow
     {
         public int Id { get; set; }
 
-        public DateTime OrderDate { get; set; }
+        public int Price { get; set; }
 
-        public virtual List<OrderRow> OrderRows { get; set; }
+        public int Amount { get; set; }
+
+        public virtual Product Products { get; set; }
     }
 }

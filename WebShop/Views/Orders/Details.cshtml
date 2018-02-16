@@ -1,0 +1,72 @@
+﻿@model WebShop.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<h2>Order Items</h2>
+<h4>Products</h4>
+
+@Html.ActionLink("Add", "AddProduct", new { oId = Model.Id }) |
+@Html.ActionLink("Remove", "RemoveProduct", new { oId = Model.Id })
+<div>
+    @foreach (var item in Model.OrderRows)
+    {
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => item.Products.Brand)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Products.Brand)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => item.Products.Model)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Products.Model)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => item.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => item.Amount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Amount)
+            </dd>
+        </dl>
+
+    }
+
+</div>
