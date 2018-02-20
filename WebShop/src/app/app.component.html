@@ -4,7 +4,12 @@
     <p><a href="https://phonetic.se" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-<div class="row">
+
+<button (click)="GetProducts()">GetProducts</button>
+<ul>
+    <li *ngFor="let aProduct of products"> Id:{{aProduct.Id}} Brand: {{aProduct.Brand}} Model: {{aProduct.Model}} Description: {{aProduct.Description}} Price: {{aProduct.Price}}</li>
+</ul>
+<!--<div class="row">
     <div class="col-md-4">
         <h2>Apple</h2>
         <p>
@@ -39,4 +44,4 @@
         <p>From a wide range of android phones you can get the one for YOU</p>
         <p><a class="btn btn-default" href="https://android.com">Learn more &raquo;</a></p>
     </div>
-</div>
+</div>-->

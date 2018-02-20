@@ -134,15 +134,37 @@ namespace WebShop.Controllers
         [HttpGet]
         public ActionResult ProductToOrderRow(int pId, int oId)
         {
-            Product product = db.Products.SingleOrDefault(p => p.Id == pId);
 
-            OrderRow orderRow = db.OrderRows.Include("Products").SingleOrDefault(o => o.Id == oId);
+            Order order = db.Orders.Include("OrderRows").Include("OrderRows.Products").SingleOrDefault(o => o.Id == oId);
 
-            orderRow.Products = product;
+            bool foundIt = false;
+
+            foreach (var item in order.OrderRows)
+            {
+                if(item.Products.Id == pId)
+                {
+                    item.Amount++;
+                    foundIt = true;
+                    break;
+                }
+            }
+
+            if(foundIt == false)
+            {
+                Product product = db.Products.SingleOrDefault(p => p.Id == pId);
+
+                OrderRow orderRow = new OrderRow();
+
+                orderRow.Amount = 1;
+                orderRow.Products = product;
+                orderRow.Price = product.Price;
+                order.OrderRows.Add(orderRow);
+            }
+
 
             db.SaveChanges();
 
-            return RedirectToAction("Details", new { id = pId });
+            return RedirectToAction("Details", new { id = oId });
         }
 
         [HttpGet]
@@ -155,15 +177,26 @@ namespace WebShop.Controllers
         [HttpGet]
         public ActionResult RemoveProductFromOrderRow(int pId, int oId)
         {
-            Product product = db.Products.SingleOrDefault(p => p.Id == pId);
+            Order order = db.Orders.Include("OrderRows").Include("OrderRows.Products").SingleOrDefault(o => o.Id == oId);
 
-            OrderRow orderRow = db.OrderRows.Include("Products").SingleOrDefault(o => o.Id == oId);
 
-            orderRow.Products = product;
+            foreach (var item in order.OrderRows)
+            {
+                if (item.Products.Id == pId)
+                {
+                    item.Amount--;
+                    if(item.Amount == 0)
+                    {
+                        order.OrderRows.Remove(item);
+                    }
+                    break;
+                }
+            }
+
 
             db.SaveChanges();
 
-            return RedirectToAction("Details", new { id = pId });
+            return RedirectToAction("Details", new { id = oId });
         }
     }
 }

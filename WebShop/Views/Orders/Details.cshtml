@@ -4,11 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+
+<h2>Order details</h2>
 
 <div>
-    <h4>Order</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.OrderDate)
@@ -17,18 +16,10 @@
         <dd>
             @Html.DisplayFor(model => model.OrderDate)
         </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-<h2>Order Items</h2>
-<h4>Products</h4>
 
-@Html.ActionLink("Add", "AddProduct", new { oId = Model.Id }) |
-@Html.ActionLink("Remove", "RemoveProduct", new { oId = Model.Id })
+@Html.ActionLink("Add item", "AddProduct", new { oId = Model.Id })
 <div>
     @foreach (var item in Model.OrderRows)
     {
@@ -65,8 +56,14 @@
             <dd>
                 @Html.DisplayFor(model => item.Amount)
             </dd>
+            <dt>
+
+            </dt>
+
+            <dd>
+                @Html.ActionLink("Remove", "RemoveProductFromOrderRow", new { pId = item.Products.Id, oId = Model.Id })
+            </dd>
         </dl>
-
     }
-
 </div>
+@Html.ActionLink("Back to List", "Index")
