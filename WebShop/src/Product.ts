@@ -1,4 +1,4 @@
-﻿export class Person {
+﻿export class Product {
     Id: number;
     Brand: string;
     Model: string;

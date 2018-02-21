@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import { Person } from '../Product';
+import { Product } from '../Product';
 
 @Component({
   selector: 'my-app',
