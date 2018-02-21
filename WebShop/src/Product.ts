@@ -4,4 +4,5 @@
     Model: string;
     Description: string;
     Price: number;
+    Image: string;
 }
