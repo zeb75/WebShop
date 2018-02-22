@@ -1,17 +1,24 @@
-﻿
+﻿<div class="row">
+    <div class=" col-md-4">
+        <table class="table">
+            <tr *ngFor="let aProduct of products" (click)="OnSelect(aProduct)">
+                <td><img src="{{aProduct.Image}}" height="100px" width="100px" /></td>
+                <td>{{aProduct.Brand}}</td>
+                <td>{{aProduct.Model}}</td>
+                <!--<td>{{aProduct.Description}}</td>-->
+                <td>{{aProduct.Price}}</td>
+            </tr>
+        </table>
+    </div>
 
+    <div class=" col-md-8">
+        <div *ngIf="selectedProduct">
+            <div>
+                <my-product-detail [productDetail]="selectedProduct"></my-product-detail>
+            </div>
 
-<button (click)="GetProducts()">GetProducts</button>
-<table class="table">
-    <tr *ngFor="let aProduct of products">
-        <td><img src="{{aProduct.Image}}" height="100px" width="100px" /></td>
-        <td>{{aProduct.Brand}}</td>
-        <td>{{aProduct.Model}}</td>
-        <td>{{aProduct.Description}}</td>
-        <td>{{aProduct.Price}}</td>
-    </tr>
-</table>
+        </div>
 
-<!--<ul>
-    <li *ngFor="let aProduct of products"> Id:{{aProduct.Id}} Brand: {{aProduct.Brand}} Model: {{aProduct.Model}} Description: {{aProduct.Description}} Price: {{aProduct.Price}}</li>
-</ul>-->
+    </div>
+</div>
+

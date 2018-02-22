@@ -9,40 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
+var core_1 = require("@angular/core"); /* OnInit to run on page */ /* Input to send from one komp to another*/
 var http_1 = require("@angular/http");
-var AppComponent = /** @class */ (function () {
-    function AppComponent(http) {
+var Product_1 = require("../Product");
+var ProductDetailComponent = /** @class */ (function () {
+    function ProductDetailComponent(http) {
         this.http = http;
-        this.newProduct = { Id: 0, Brand: "Brand", Model: "Model", Description: "Description", Price: 0, Image: "Image" };
-        this.name = 'Angular';
     }
-    AppComponent.prototype.ngOnInit = function () {
-        this.GetProducts();
+    ProductDetailComponent.prototype.ngOnInit = function () {
     };
-    AppComponent.prototype.OnSelect = function (productDetail) {
-        if (this.selectedProduct === productDetail) {
-            this.selectedProduct = null;
-        }
-        else {
-            this.selectedProduct = productDetail;
-        }
-    };
-    AppComponent.prototype.GetProducts = function () {
-        var _this = this;
-        this.http.get('/Home/ProductList')
+    ProductDetailComponent.prototype.EditPerson = function () {
+        console.log(this.productDetail);
+        this.http.post('/Home/ProductDetail', this.productDetail)
             .subscribe(function (data) {
-            _this.products = data.json();
+            console.log(data);
+            if (data.status == 200) {
+            }
         });
     };
-    AppComponent = __decorate([
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Product_1.Product)
+    ], ProductDetailComponent.prototype, "productDetail", void 0);
+    ProductDetailComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            templateUrl: "./app.component.html",
+            selector: 'my-product-detail',
+            templateUrl: "./productDetail.component.html",
         }),
         __metadata("design:paramtypes", [http_1.Http])
-    ], AppComponent);
-    return AppComponent;
+    ], ProductDetailComponent);
+    return ProductDetailComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.ProductDetailComponent = ProductDetailComponent;
+//# sourceMappingURL=productDetail.component.js.map

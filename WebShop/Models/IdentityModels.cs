@@ -19,6 +19,7 @@ namespace WebShop.Models
         public string City { get; set; }
         public string Country { get; set; }
         public List<Order> Orders { get; set; }
+        public List<CartItem> CartItems { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

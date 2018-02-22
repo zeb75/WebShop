@@ -33,5 +33,21 @@ namespace WebShop.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             return Json(db.Products.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Productdetail(Product product)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            Product OldProduct = db.Products.SingleOrDefault(p => p.Id == product.Id);
+
+            OldProduct.Brand = product.Brand;
+            OldProduct.Model = product.Model;
+            OldProduct.Description = product.Description;
+            OldProduct.Price = product.Price;
+            OldProduct.Image = product.Image;
+
+            db.SaveChanges();
+            return Json(product, JsonRequestBehavior.AllowGet);
+        }
     }
 }
