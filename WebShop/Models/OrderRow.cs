@@ -13,6 +13,6 @@ namespace WebShop.Models
 
         public int Amount { get; set; }
 
-        public virtual Product Products { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#st {
+    position: fixed;
+    top: 55px;
+    padding: 35px;
+}

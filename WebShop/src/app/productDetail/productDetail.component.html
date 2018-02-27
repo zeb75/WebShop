@@ -2,4 +2,7 @@
 <div>{{productDetail.Brand}}</div>
 <div>{{productDetail.Model}}</div>
 <div>{{productDetail.Description}}</div>
-<div>{{productDetail.Price}}</div>
+<div>{{productDetail.Price | currency: 'sek':true: '1.2-2'}}</div>
+
+<button class="btn-success" (click)="AddToCart()">Add to cart</button>
+

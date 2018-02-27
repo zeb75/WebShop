@@ -19,7 +19,7 @@ namespace WebShop.Models
         public string City { get; set; }
         public string Country { get; set; }
         public List<Order> Orders { get; set; }
-        public List<CartItem> CartItems { get; set; }
+        public virtual List<CartItem> CartItems { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -47,5 +47,7 @@ namespace WebShop.Models
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderRow> OrderRows { get; set; }
+
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }

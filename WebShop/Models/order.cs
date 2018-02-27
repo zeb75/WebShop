@@ -12,5 +12,10 @@ namespace WebShop.Models
         public DateTime OrderDate { get; set; }
 
         public virtual List<OrderRow> OrderRows { get; set; }
+
+        public Order()
+        {
+            OrderRows = new List<OrderRow>();
+        }
     }
 }

@@ -141,7 +141,7 @@ namespace WebShop.Controllers
 
             foreach (var item in order.OrderRows)
             {
-                if(item.Products.Id == pId)
+                if(item.Product.Id == pId)
                 {
                     item.Amount++;
                     foundIt = true;
@@ -156,7 +156,7 @@ namespace WebShop.Controllers
                 OrderRow orderRow = new OrderRow();
 
                 orderRow.Amount = 1;
-                orderRow.Products = product;
+                orderRow.Product = product;
                 orderRow.Price = product.Price;
                 order.OrderRows.Add(orderRow);
             }
@@ -177,12 +177,12 @@ namespace WebShop.Controllers
         [HttpGet]
         public ActionResult RemoveProductFromOrderRow(int pId, int oId)
         {
-            Order order = db.Orders.Include("OrderRows").Include("OrderRows.Products").SingleOrDefault(o => o.Id == oId);
+            Order order = db.Orders.Include("OrderRows").Include("OrderRows.Product").SingleOrDefault(o => o.Id == oId);
 
 
             foreach (var item in order.OrderRows)
             {
-                if (item.Products.Id == pId)
+                if (item.Product.Id == pId)
                 {
                     item.Amount--;
                     if(item.Amount == 0)

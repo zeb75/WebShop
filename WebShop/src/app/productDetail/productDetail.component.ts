@@ -15,12 +15,26 @@ export class ProductDetailComponent implements OnInit {
 
     }
 
-    EditPerson() {
+    EditPerson()
+    {
         console.log(this.productDetail);
         this.http.post('/Home/ProductDetail', this.productDetail)
             .subscribe(data => {
                 console.log(data);
                 if (data.status == 200) {
+
+                }
+            });
+    }
+
+    AddToCart()
+    {
+        this.http.post('/Home/AddToCart', this.productDetail)
+            .subscribe(data =>
+            {
+                console.log(data);
+                if (data.status == 200)
+                {
 
                 }
             });

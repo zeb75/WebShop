@@ -26,19 +26,19 @@
         <dl class="dl-horizontal">
 
             <dt>
-                @Html.DisplayNameFor(model => item.Products.Brand)
+                @Html.DisplayNameFor(model => item.Product.Brand)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => item.Products.Brand)
+                @Html.DisplayFor(model => item.Product.Brand)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => item.Products.Model)
+                @Html.DisplayNameFor(model => item.Product.Model)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => item.Products.Model)
+                @Html.DisplayFor(model => item.Product.Model)
             </dd>
 
             <dt>
@@ -61,7 +61,7 @@
             </dt>
 
             <dd>
-                @Html.ActionLink("Remove", "RemoveProductFromOrderRow", new { pId = item.Products.Id, oId = Model.Id })
+                @Html.ActionLink("Remove", "RemoveProductFromOrderRow", new { pId = item.Product.Id, oId = Model.Id })
             </dd>
         </dl>
     }

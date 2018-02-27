@@ -27,6 +27,14 @@ var ProductDetailComponent = /** @class */ (function () {
             }
         });
     };
+    ProductDetailComponent.prototype.AddToCart = function () {
+        this.http.post('/Home/AddToCart', this.productDetail)
+            .subscribe(function (data) {
+            console.log(data);
+            if (data.status == 200) {
+            }
+        });
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Product_1.Product)
