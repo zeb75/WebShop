@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Checkout";
+    var tot = 0;
 }
 
 <h2>Order reciept</h2>
@@ -15,5 +16,7 @@
     @item.Product.Brand
     @item.Product.Model
     @item.Price
-        
+    tot = tot + (item.Amount * item.Product.Price);
+
 }
+@tot

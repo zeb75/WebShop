@@ -12,6 +12,7 @@ namespace WebShop.Models
 
         [ForeignKey("Product")]
         public int ProductRefId { get; set; }
+
         public Product Product { get; set; }
 
         public int Amount { get; set; }

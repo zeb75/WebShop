@@ -20,7 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Amount)
         </th>
-        <th></th>
+        <th>
+            Total Price
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -39,13 +41,22 @@
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @(item.Amount * item.Product.Price)
+            </td>
+            <td>
+                @Html.ActionLink("+", "EditCart", new { id = item.Id, edit = "plus" }, new { @class = "btn btn-default btn-xs" })
+                @Html.ActionLink("-", "EditCart", new { id = item.Id, edit = "minus" }, new { @class = "btn btn-default btn-xs" })
             </td>
         </tr>
     }
 
 </table>
-
-@Html.ActionLink("Checkout", "Checkout",null,new { @class="btn btn-success" })
+<h3>Total sum: @{
+    var tot = 0;
+    foreach (var item in Model)
+    {
+        tot = tot + (item.Amount * item.Product.Price);
+    }
+} @tot</h3>
+@Html.ActionLink("Checkout", "Checkout", null, new { @class = "btn btn-success" })
 

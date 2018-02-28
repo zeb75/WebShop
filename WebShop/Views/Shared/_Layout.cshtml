@@ -38,7 +38,7 @@
                         <li>@Html.ActionLink("Products", "Index", "Products")</li>
                         <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
                     }
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Shopping Cart", "Cart", "Home")</li>
                     }

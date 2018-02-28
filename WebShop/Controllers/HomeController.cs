@@ -37,21 +37,7 @@ namespace WebShop.Controllers
             return View();
         }
 
-        [Authorize]
-        public ActionResult Cart(Product product)
 
-        {
-            var uId = User.Identity.GetUserId();
-            ApplicationDbContext db = new ApplicationDbContext();
-            ApplicationUser applicationUser = db.Users.SingleOrDefault(u => u.Id == uId);
-
-            foreach (var item in applicationUser.CartItems)
-            {
-                item.Product = db.Products.SingleOrDefault(p => p.Id == item.ProductRefId);
-            }
-            return View(applicationUser.CartItems);
-
-        }
 
         public JsonResult ProductList()
         {
@@ -75,6 +61,21 @@ namespace WebShop.Controllers
             return Json(product, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize]
+        public ActionResult Cart(Product product)
+
+        {
+            var uId = User.Identity.GetUserId();
+            ApplicationDbContext db = new ApplicationDbContext();
+            ApplicationUser applicationUser = db.Users.SingleOrDefault(u => u.Id == uId);
+
+            foreach (var item in applicationUser.CartItems)
+            {
+                item.Product = db.Products.SingleOrDefault(p => p.Id == item.ProductRefId);
+            }
+            return View(applicationUser.CartItems);
+
+        }
 
         [Authorize]
         public JsonResult AddToCart(Product product)
@@ -102,6 +103,40 @@ namespace WebShop.Controllers
             db.SaveChanges();
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
+
+        [Authorize]
+        public ActionResult EditCart(int id, string edit)
+        {
+            var uId = User.Identity.GetUserId();
+            ApplicationDbContext db = new ApplicationDbContext();
+            ApplicationUser applicationUser = db.Users.SingleOrDefault(u => u.Id == uId);
+
+            foreach (var item in applicationUser.CartItems)
+            {
+                if (item.Id == id)
+                {
+
+                    if(edit == "plus")
+                    {
+                        item.Amount++;
+                    }
+
+                    else if(item.Amount > 1)
+                    {
+                        item.Amount--;
+                    }
+                  
+                    else
+                    {
+                        applicationUser.CartItems.Remove(item);
+                    }
+                    break;
+                }
+            }
+            db.SaveChanges();
+            return RedirectToAction("Cart");
+        }
+
         [Authorize]
         public ActionResult Checkout()
         {
@@ -109,27 +144,35 @@ namespace WebShop.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             ApplicationUser applicationUser = db.Users.Include("CartItems.Product").Include("Orders").SingleOrDefault(u => u.Id == uId);
 
-            Order order = new Order();
-            order.OrderDate = DateTime.Now;
-            
 
-            foreach (var item in applicationUser.CartItems)
+            if (applicationUser.CartItems.Count > 0)
             {
-                OrderRow orderrow = new OrderRow();
-                orderrow.Amount = item.Amount;
-                orderrow.Product = item.Product;
-                orderrow.Price = item.Product.Price;
+                Order order = new Order();
+                order.OrderDate = DateTime.Now;
 
-                order.OrderRows.Add(orderrow);
+
+                foreach (var item in applicationUser.CartItems)
+                {
+                    OrderRow orderrow = new OrderRow();
+                    orderrow.Amount = item.Amount;
+                    orderrow.Product = item.Product;
+                    orderrow.Price = item.Product.Price;
+
+                    order.OrderRows.Add(orderrow);
+                }
+
+
+                applicationUser.Orders.Add(order);
+                applicationUser.CartItems.Clear();
+
+                db.SaveChanges();
+                return View(order);
             }
 
-
-            applicationUser.Orders.Add(order);
-            applicationUser.CartItems.Clear();
-
-            db.SaveChanges();
-
-            return View(order);
+            else
+            {
+               return RedirectToAction("Cart");
+            }
 
         }
        
