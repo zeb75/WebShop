@@ -41,6 +41,7 @@
                     @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Shopping Cart", "Cart", "Home")</li>
+                        <li>@Html.ActionLink("Order History", "OrderHistory", "Orders")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

@@ -9,10 +9,14 @@ import { Product } from '../Product';
 export class ProductDetailComponent implements OnInit {
     @Input() productDetail: Product;
 
+    loginStatus = false;
+
+    CartMessage: string;
+
     constructor(private http: Http) { }
 
     ngOnInit(): void {
-
+        this.GetloginStatus();
     }
 
     EditPerson()
@@ -35,7 +39,20 @@ export class ProductDetailComponent implements OnInit {
                 console.log(data);
                 if (data.status == 200)
                 {
+                    this.CartMessage = "Added to cart!"
+                }
+            });
+    }
 
+
+    GetloginStatus()
+    {
+        this.http.get('/Home/IsLoggedIn')
+            .subscribe(data =>
+            {
+                if (data.status == 200)
+                {
+                    this.loginStatus = data.json();
                 }
             });
     }

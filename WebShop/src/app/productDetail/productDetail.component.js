@@ -15,8 +15,10 @@ var Product_1 = require("../Product");
 var ProductDetailComponent = /** @class */ (function () {
     function ProductDetailComponent(http) {
         this.http = http;
+        this.loginStatus = false;
     }
     ProductDetailComponent.prototype.ngOnInit = function () {
+        this.GetloginStatus();
     };
     ProductDetailComponent.prototype.EditPerson = function () {
         console.log(this.productDetail);
@@ -28,10 +30,21 @@ var ProductDetailComponent = /** @class */ (function () {
         });
     };
     ProductDetailComponent.prototype.AddToCart = function () {
+        var _this = this;
         this.http.post('/Home/AddToCart', this.productDetail)
             .subscribe(function (data) {
             console.log(data);
             if (data.status == 200) {
+                _this.CartMessage = "Added to cart!";
+            }
+        });
+    };
+    ProductDetailComponent.prototype.GetloginStatus = function () {
+        var _this = this;
+        this.http.get('/Home/IsLoggedIn')
+            .subscribe(function (data) {
+            if (data.status == 200) {
+                _this.loginStatus = data.json();
             }
         });
     };

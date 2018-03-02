@@ -2,7 +2,8 @@
 <div>{{productDetail.Brand}}</div>
 <div>{{productDetail.Model}}</div>
 <div>{{productDetail.Description}}</div>
-<div>{{productDetail.Price | currency: 'sek':true: '1.2-2'}}</div>
+<div>{{productDetail.Price}}kr</div>
 
-<button class="btn-success" (click)="AddToCart()">Add to cart</button>
+<button class="btn-success" (click)="AddToCart()" *ngIf="loginStatus">Add to cart</button>
 
+<h3>{{CartMessage}}</h3>

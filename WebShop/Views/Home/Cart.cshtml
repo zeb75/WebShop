@@ -35,13 +35,13 @@
                 @Html.DisplayFor(modelItem => item.Product.Model)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Product.Price)
+                @Html.DisplayFor(modelItem => item.Product.Price)kr
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                @(item.Amount * item.Product.Price)
+                @(item.Amount * item.Product.Price)kr
             </td>
             <td>
                 @Html.ActionLink("+", "EditCart", new { id = item.Id, edit = "plus" }, new { @class = "btn btn-default btn-xs" })
@@ -57,6 +57,7 @@
     {
         tot = tot + (item.Amount * item.Product.Price);
     }
-} @tot</h3>
+} 
+@(tot)kr</h3>
 @Html.ActionLink("Checkout", "Checkout", null, new { @class = "btn btn-success" })
 

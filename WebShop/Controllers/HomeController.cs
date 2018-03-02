@@ -176,5 +176,19 @@ namespace WebShop.Controllers
 
         }
        
+        public JsonResult IsLoggedIn()
+
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            else
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

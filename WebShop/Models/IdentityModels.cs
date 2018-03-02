@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,9 +13,12 @@ namespace WebShop.Models
     public class ApplicationUser : IdentityUser
     {
         public DateTime BirthDate { get; set; }
+        [Display(Name = "Name")]
         public string FirstName { get; set; }
+        [Display(Name = "Surname")]
         public string LastName { get; set; }
         public string Adress { get; set; }
+        [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
         public string City { get; set; }
         public string Country { get; set; }

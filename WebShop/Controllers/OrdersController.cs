@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -141,7 +142,7 @@ namespace WebShop.Controllers
 
             foreach (var item in order.OrderRows)
             {
-                if(item.Product.Id == pId)
+                if (item.Product.Id == pId)
                 {
                     item.Amount++;
                     foundIt = true;
@@ -149,7 +150,7 @@ namespace WebShop.Controllers
                 }
             }
 
-            if(foundIt == false)
+            if (foundIt == false)
             {
                 Product product = db.Products.SingleOrDefault(p => p.Id == pId);
 
@@ -185,7 +186,7 @@ namespace WebShop.Controllers
                 if (item.Product.Id == pId)
                 {
                     item.Amount--;
-                    if(item.Amount == 0)
+                    if (item.Amount == 0)
                     {
                         order.OrderRows.Remove(item);
                     }
@@ -198,5 +199,26 @@ namespace WebShop.Controllers
 
             return RedirectToAction("Details", new { id = oId });
         }
+
+        public ActionResult OrderHistory()
+        
+            {
+                var uId = User.Identity.GetUserId();
+                ApplicationDbContext db = new ApplicationDbContext();
+                ApplicationUser applicationUser = db.Users.Include("Orders").SingleOrDefault(u => u.Id == uId);
+
+
+                return View(applicationUser.Orders);
+
+            }
+
+        public ActionResult OrderHistoryDetails(int oId)
+        {
+            var order = db.Orders.SingleOrDefault(o => o.Id == oId);
+            return View(order);
+        }
+
+
+
     }
 }

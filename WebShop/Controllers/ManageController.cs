@@ -64,18 +64,62 @@ namespace WebShop.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var user = UserManager.FindById(userId);
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Adress = user.Adress,
+                ZipCode = user.ZipCode,
+                City = user.City,
+                Country = user.Country
             };
             return View(model);
         }
+        
+        public ActionResult EditInfo()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = UserManager.FindById(userId);
 
-        //
+            var model = new IndexViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Adress = user.Adress,
+                ZipCode = user.ZipCode,
+                City = user.City,
+                Country = user.Country
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult EditInfo(IndexViewModel inf)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.SingleOrDefault(u => u.Id == userId);
+
+            user.FirstName = inf.FirstName;
+            user.LastName = inf.LastName;
+            user.Adress = inf.Adress;
+            user.ZipCode = inf.ZipCode;
+            user.City = inf.City;
+            user.Country = inf.Country;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]

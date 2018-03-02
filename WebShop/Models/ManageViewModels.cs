@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -12,6 +13,16 @@ namespace WebShop.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public DateTime BirthDate { get; set; }
+        [Display(Name = "Name")]
+        public string FirstName { get; set; }
+        [Display(Name = "Surname")]
+        public string LastName { get; set; }
+        public string Adress { get; set; }
+        [Display(Name = "Zip Code")]
+        public int ZipCode { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
     }
 
     public class ManageLoginsViewModel

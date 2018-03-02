@@ -1,0 +1,18 @@
+﻿@model List<WebShop.Models.Order>
+@{
+    ViewBag.Title = "OrderHistory";
+}
+
+<h2>Order History</h2>
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.OrderDate</td>
+            <td>@Html.ActionLink("Details", "OrderHistoryDetails", new { oId = item.Id })</td>
+        </tr>
+    }
+
+</table>

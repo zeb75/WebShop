@@ -10,13 +10,39 @@
 <h4>Order ID: @Model.Id</h4>
 <h4>Order Date: @Model.OrderDate</h4>
 
-@foreach (var item in Model.OrderRows)
-{
-    @item.Amount
-    @item.Product.Brand
-    @item.Product.Model
-    @item.Price
-    tot = tot + (item.Amount * item.Product.Price);
+@*@foreach (var item in Model.OrderRows)
+    {
+        @item.Amount
+        @item.Product.Brand
+        @item.Product.Model
+        @item.Price
+        tot = tot + (item.Amount * item.Product.Price);
 
-}
-@tot
+    }
+    @tot*@
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <td>Amount</td>
+            <td>Brand</td>
+            <td>Model</td>
+            <td>Price</td>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.OrderRows)
+        {
+        <tr>
+            <td>@item.Amount</td>
+            <td>@item.Product.Brand</td>
+            <td>@item.Product.Model</td>
+            <td>@(item.Price)kr</td>
+        </tr>
+            tot = tot + (item.Amount * item.Product.Price);
+        }
+
+    </tbody>
+</table>
+<h3>Total price: @tot</h3>

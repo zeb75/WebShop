@@ -1,0 +1,34 @@
+﻿@model WebShop.Models.IndexViewModel
+@{
+    ViewBag.Title = "Edit Details";
+}
+
+<form action="@Url.Action("EditInfo")" method="post" id="info">
+
+    @Html.DisplayNameFor(Model => Model.FirstName)
+    <br />
+    @Html.EditorFor(Model => Model.FirstName)
+    <br /><br />
+    @Html.DisplayNameFor(Model => Model.LastName)
+    <br />
+    @Html.EditorFor(Model => Model.LastName)
+    <br /><br />
+    @Html.DisplayNameFor(Model => Model.Adress)
+    <br />
+    @Html.EditorFor(Model => Model.Adress)
+    <br /><br />
+    @Html.DisplayNameFor(Model => Model.ZipCode)
+    <br />
+    @Html.EditorFor(Model => Model.ZipCode)
+    <br /><br />
+    @Html.DisplayNameFor(Model => Model.City)
+    <br />
+    @Html.EditorFor(Model => Model.City)
+    <br /><br />
+    @Html.DisplayNameFor(Model => Model.Country)
+    <br />
+    @Html.EditorFor(Model => Model.Country)
+    <br /><br />
+    <input type="submit" value="Save" class="btn btn-success" />
+</form>
+
