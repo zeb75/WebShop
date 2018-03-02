@@ -1,29 +1,31 @@
 ﻿@model WebShop.Models.Order
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "OrderHistoryDetails";
     var tot = 0;
 }
 
-<h2>Order Details</h2>
+<h2>Order History Details</h2>
 
 <div>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Id)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.OrderDate)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.OrderDate)
         </dd>
+
     </dl>
-</div>
-<div>
+
     <table class="table">
         <thead>
             <tr>
@@ -64,20 +66,16 @@
                 <td>
                     @(item.Amount * item.Price)kr
                 </td>
-                <td>
-                    @Html.ActionLink("Remove", "RemoveProductFromOrderRow", new { pId = item.Product.Id, oId = Model.Id })
-                </td>
             </tr>
-                tot = tot + (item.Amount * item.Price);
+                tot = tot + (item.Amount * item.Product.Price);
             }
 
         </tbody>
     </table>
-</div>
-    <h3>Total: @(tot)kr</h3>
+    
+<h3>Total: @(tot)kr</h3>
 
-    <p>
-        @Html.ActionLink("Add Product", "AddProduct", new { oId = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+<p>
+    @Html.ActionLink("Back to List", "OrderHistory")
+</p>
 

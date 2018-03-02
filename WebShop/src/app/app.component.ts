@@ -29,7 +29,6 @@ export class AppComponent implements OnInit {
         }
     }
 
-
     GetProducts() {
         this.http.get('/Home/ProductList')
             .subscribe(data => {

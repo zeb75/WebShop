@@ -11,6 +11,7 @@ using WebShop.Models;
 
 namespace WebShop.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class OrdersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -136,7 +137,7 @@ namespace WebShop.Controllers
         public ActionResult ProductToOrderRow(int pId, int oId)
         {
 
-            Order order = db.Orders.Include("OrderRows").Include("OrderRows.Products").SingleOrDefault(o => o.Id == oId);
+            Order order = db.Orders.Include("OrderRows").Include("OrderRows.Product").SingleOrDefault(o => o.Id == oId);
 
             bool foundIt = false;
 
@@ -199,26 +200,6 @@ namespace WebShop.Controllers
 
             return RedirectToAction("Details", new { id = oId });
         }
-
-        public ActionResult OrderHistory()
-        
-            {
-                var uId = User.Identity.GetUserId();
-                ApplicationDbContext db = new ApplicationDbContext();
-                ApplicationUser applicationUser = db.Users.Include("Orders").SingleOrDefault(u => u.Id == uId);
-
-
-                return View(applicationUser.Orders);
-
-            }
-
-        public ActionResult OrderHistoryDetails(int oId)
-        {
-            var order = db.Orders.SingleOrDefault(o => o.Id == oId);
-            return View(order);
-        }
-
-
 
     }
 }

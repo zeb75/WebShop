@@ -11,6 +11,7 @@ namespace WebShop.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
 
 
         public ActionResult Campaign()
@@ -36,8 +37,6 @@ namespace WebShop.Controllers
 
             return View();
         }
-
-
 
         public JsonResult ProductList()
         {
@@ -188,6 +187,26 @@ namespace WebShop.Controllers
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public ActionResult OrderHistory()
+
+        {
+            var uId = User.Identity.GetUserId();
+            ApplicationDbContext db = new ApplicationDbContext();
+            ApplicationUser applicationUser = db.Users.Include("Orders").SingleOrDefault(u => u.Id == uId);
+
+            applicationUser.Orders = applicationUser.Orders.OrderByDescending(o => o.OrderDate).ToList();  /* Sortera lista*/
+
+            return View(applicationUser.Orders);
+
+
+        }
+
+        public ActionResult OrderHistoryDetails(int oId)
+        {
+            var order = db.Orders.SingleOrDefault(o => o.Id == oId);
+            return View(order);
         }
 
     }

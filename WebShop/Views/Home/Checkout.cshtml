@@ -5,23 +5,60 @@
     var tot = 0;
 }
 
-<h2>Order reciept</h2>
+<h2>Order Reciept</h2>
 
 <h4>Order ID: @Model.Id</h4>
 <h4>Order Date: @Model.OrderDate</h4>
 
-@*@foreach (var item in Model.OrderRows)
-    {
-        @item.Amount
-        @item.Product.Brand
-        @item.Product.Model
-        @item.Price
-        tot = tot + (item.Amount * item.Product.Price);
 
-    }
-    @tot*@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.OrderRows.First().Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.OrderRows.First().Product.Brand)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.OrderRows.First().Product.Model)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.OrderRows.First().Price)
+                </th>
+                <th>
+                    Total
+                </th>
+            </tr>
+        </thead>
+        <tbody>
 
-<table class="table table-bordered table-striped">
+            @foreach (var item in Model.OrderRows)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @(item.Amount * item.Price)kr
+                </td>
+            </tr>
+                tot = tot + (item.Amount * item.Product.Price);
+            }
+
+        </tbody>
+    </table>
+
+@*<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <td>Amount</td>
@@ -34,15 +71,17 @@
 
         @foreach (var item in Model.OrderRows)
         {
-        <tr>
-            <td>@item.Amount</td>
-            <td>@item.Product.Brand</td>
-            <td>@item.Product.Model</td>
-            <td>@(item.Price)kr</td>
-        </tr>
+            <tr>
+                <td>@item.Amount</td>
+                <td>@item.Product.Brand</td>
+                <td>@item.Product.Model</td>
+                <td>@(item.Price)kr</td>
+            </tr>
             tot = tot + (item.Amount * item.Product.Price);
         }
 
     </tbody>
-</table>
-<h3>Total price: @tot</h3>
+</table>*@
+<h3>Total: @(tot)kr</h3>
+
+
